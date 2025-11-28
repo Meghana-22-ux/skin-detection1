@@ -83,4 +83,5 @@ registerForm.addEventListener("submit", (e) => {
 document.getElementById("getStartedBtn").addEventListener("click", () => {
     // 🔥 Redirect to dashboard
     window.location.href = "dashboard.html";
+
 });
