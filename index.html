@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DermaGuard — AI Skin Disease Detection</title>
+    <meta name="description" content="AI-powered skin disease detection. Upload a photo to get instant preliminary insights. Secure login and registration included." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="data:,">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container nav">
+            <a class="brand" href="#" aria-label="Home">
+                <img src="logo.skin.jpg" alt="DermaGuard logo" class="brand-logo" />
+                <span class="brand-text">Derma Guard</span>
+            </a>
+            <div class="auth-actions">
+                <button id="loginBtn" class="btn btn-ghost">Log in</button>
+                <button id="registerBtn" class="btn btn-primary">Sign up</button>
+                <div id="userMenu" class="user-menu" hidden>
+                    <span id="userWelcome" class="user-welcome" aria-live="polite"></span>
+                    <button id="logoutBtn" class="btn btn-ghost">Sign out</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content container">
+                <h1>Early insights for healthier skin</h1>
+                <div class="hero-cta">
+                    <button id="getStartedBtn" class="btn btn-primary">Get started</button>
+                    <button id="learnMoreBtn" class="btn btn-ghost">Learn more</button>
+                </div>
+            </div>
+            <div class="hero-media" role="img" aria-label="Skin health background image">
+                <img src="skin beside.jpg" alt="Abstract close-up related to skin health" />
+            </div>
+        </section>
+
+        <section id="features" class="section container">
+            <h2>Why DermaGuard</h2>
+            <div class="features-grid">
+                <article class="card">
+                    <div class="card-icon" aria-hidden="true">🔍</div>
+                    <h3>AI-assisted pre-screen</h3>
+                    <p>Get fast, preliminary insights to help you decide whether to seek care.</p>
+                </article>
+                <article class="card">
+                    <div class="card-icon" aria-hidden="true">🛡</div>
+                    <h3>Your data, your control</h3>
+                    <p>Images stay on your device for the quick check. You decide what to save.</p>
+                </article>
+                <article class="card">
+                    <div class="card-icon" aria-hidden="true">⚡</div>
+                    <h3>Simple & fast</h3>
+                    <p>Upload, review, and learn in minutes with a clean, accessible UI.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="faq" class="section container">
+            <h2>FAQ</h2>
+            <details>
+                <summary>Is this a medical diagnosis?</summary>
+                <p>No. This is an educational tool to help you decide if you should seek care.</p>
+            </details>
+            <details>
+                <summary>Is my data private?</summary>
+                <p>Quick checks are processed locally. Saved scans are stored to your account only if you opt in.</p>
+            </details>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <p>© <span id="year"></span> DermaGuard. For educational purposes only.</p>
+            <nav class="footer-nav" aria-label="Footer">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#faq">Help</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Chat icon and popup -->
+    <button id="chatLauncher" class="chat-launcher" aria-label="Chat icon" aria-expanded="false">
+        💬
+    </button>
+    <section id="chatWidget" class="chat-widget" aria-label="Chatbot" hidden>
+        <header class="chat-header">
+            <div class="chat-title">Chatbot</div>
+            <button type="button" class="icon-btn" id="chatClose" aria-label="Close chat">✕</button>
+        </header>
+        <div id="chatMessages" class="chat-messages" aria-live="polite" aria-relevant="additions"></div>
+        <form id="chatForm" class="chat-input" autocomplete="off">
+            <input id="chatText" type="text" placeholder="Type your message..." aria-label="Message" required />
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+    </section>
+
+    <!-- Login Modal -->
+    <dialog id="loginModal" class="modal">
+        <form method="dialog" class="modal-card" id="loginForm" novalidate>
+            <header class="modal-header">
+                <h3>Welcome back</h3>
+                <button type="button" class="icon-btn" data-close>✕</button>
+            </header>
+            <div class="modal-body">
+                <label class="field">
+          <span>Email</span>
+          <input type="email" id="loginEmail" autocomplete="email" required />
+          <small class="error" id="loginEmailError" aria-live="polite"></small>
+        </label>
+                <label class="field">
+          <span>Password</span>
+          <input type="password" id="loginPassword" autocomplete="current-password" minlength="6" required />
+          <small class="error" id="loginPasswordError" aria-live="polite"></small>
+        </label>
+                <label class="checkbox">
+          <input type="checkbox" id="rememberMe" />
+          <span>Remember me</span>
+        </label>
+            </div>
+            <footer class="modal-footer">
+                <button type="submit" class="btn btn-primary">Log in</button>
+                <button type="button" class="btn btn-ghost" data-close>Cancel</button>
+            </footer>
+        </form>
+    </dialog>
+
+    <!-- Register Modal -->
+    <dialog id="registerModal" class="modal">
+        <form method="dialog" class="modal-card" id="registerForm" novalidate>
+            <header class="modal-header">
+                <h3>Create your account</h3>
+                <button type="button" class="icon-btn" data-close>✕</button>
+            </header>
+            <div class="modal-body">
+                <label class="field">
+          <span>Full name</span>
+          <input type="text" id="registerName" autocomplete="name" required />
+          <small class="error" id="registerNameError" aria-live="polite"></small>
+        </label>
+                <label class="field">
+          <span>Email</span>
+          <input type="email" id="registerEmail" autocomplete="email" required />
+          <small class="error" id="registerEmailError" aria-live="polite"></small>
+        </label>
+                <label class="field">
+          <span>Password</span>
+          <input type="password" id="registerPassword" autocomplete="new-password" minlength="6" required />
+          <small class="error" id="registerPasswordError" aria-live="polite"></small>
+        </label>
+                <label class="field">
+          <span>Confirm password</span>
+          <input type="password" id="registerConfirm" minlength="6" required />
+          <small class="error" id="registerConfirmError" aria-live="polite"></small>
+        </label>
+                <label class="checkbox">
+          <input type="checkbox" id="tosAgree" required />
+          <span>I agree to the Terms of Service</span>
+        </label>
+                <small class="error" id="registerTosError" aria-live="polite"></small>
+            </div>
+            <footer class="modal-footer">
+                <button type="submit" class="btn btn-primary">Sign up</button>
+                <button type="button" class="btn btn-ghost" data-close>Cancel</button>
+            </footer>
+        </form>
+    </dialog>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
